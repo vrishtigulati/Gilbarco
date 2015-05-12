@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <title>Gilbarco PoC</title>
+ <link rel="stylesheet"
+  href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+ <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+ <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js">
+ </script>
+ <style type = "text/css">
+body {
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+p, h1, form, button {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+.spacer {
+    clear: both;
+    height: 1px;
+}
+.myform 
+{
+    margin: 100px;
+    width: 400px;
+    padding: 14px;
+}
+.myform2
+{
+	margin: 5px;
+    width: 400px;
+    padding: 14px;
+	margin-left: 50px;
+}
+#stylized 
+{
+    border: solid 2px #222222;
+    background: #333333;
+	text-align: center;
+}
+
+ #foot {
+  font-size: 75%;
+  font-style: italic;
+  text-align: center;
+ }
+ pre {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  width: auto;
+ }
+ </style>
+</head>
+<body>
+ <div id = "page1" data-role = "page" style="background-image: url(https://api-connectors-prod.apigee.net/appservices/insights-demo-2-0/gilbarco/images/GilbarcoBG?client_id=b3U6UBCSavNkEeS0j8t9pw-sUw&client_secret=b3U6f_tgPRAlH3rrHQKo1VnCXqAgSRY); background-attachment: fixed; background-repeat: no-repeat; background-size: 100% 100%;" data-theme = "a">
+ <div id="head" data-role = "header">
+  <h1>Gilbarco PoC</h1>
+  <a href = "#page2" class = "ui-btn-right">next</a>
+ </div>
+ <div id = "stylized" class = "myform">
+    <form
+        id = "form"
+        action = "#"
+        name = "form">
+		<img src="https://api-connectors-prod.apigee.net/appservices/insights-demo-2-0/gilbarco/images/GilbarcoLogo?client_id=b3U6UBCSavNkEeS0j8t9pw-sUw&client_secret=b3U6f_tgPRAlH3rrHQKo1VnCXqAgSRY"; text-align:center>
+        <h2><font color="#cccc00">Insights Simulator</font></h2>
+		<h3>
+ 		<table style="width:100%">
+			<tr>
+				<td><label>Location :</label></td>
+				<td><select id = "cboLocations" name = "cboLocations" ></select></td>
+			</tr>
+			<tr>
+				<td><label>Weather :</label></td>
+				<td><select id = "cboWeather" name = "cboWeather" ></select></td>
+			</tr>
+			<tr>
+				<td><label>Time of the Day : </label></td>
+				<td><input id = "timeOfDay" name = "timeOfDay" type="time" ></td>
+			</tr>
+			<tr><td></td><td>
+			  <a href = "#page2" data-role = "button" data-transition = "slide" id = "LetsBegin">Let's Begin</a>
+			</td></tr>
+		</table>
+		</h3>
+	</form>
+</div>
+ <div id="foot" data-role = "footer" data-position = "fixed">
+  Apigee Insights Demo
+ </div>
+ </div>
+<div id = "page2" data-role = "page" style="background-image: url(https://api-connectors-prod.apigee.net/appservices/insights-demo-2-0/gilbarco/images/GilbarcoBG?client_id=b3U6UBCSavNkEeS0j8t9pw-sUw&client_secret=b3U6f_tgPRAlH3rrHQKo1VnCXqAgSRY); background-attachment: fixed; background-repeat: no-repeat; background-size: 100% 100%;" data-theme = "a">
+ <div id="head" data-role = "header">
+  <a href = "#page1">prev</a>
+  <h1>Gilbarco PoC</h1>
+  <a href = "#page1" data-role = "button" id = "StartOver" onclick="reset_all();" data-transition = "flip">Start Over</a>
+ </div>
+ <div id="content" data-role = "content" width=100%;>
+ <div style="float:left; width:30%;">
+ <div data-role="collapsible" data-collapsed="false" background-color="#333333" id = "stylized">
+  <h1>Recommendations</h1>
+  
+  <h3>
+  <table  id="recoContentsTable" style="width: 100%">
+  <tr><td></td></tr></table>
+  </h3>
+  
+</div>
+  </div>
+   <div style="float:left; width:70%;">
+   <div id = "stylized" class = "myform2">
+    <form
+        id = "form2"
+        action = "#"
+        name = "form2">
+		<div text-align: center;>
+		<h2>Items in Shopping Cart</h2>
+		<table style="width: 100%"><tr><td><h2>
+		 <td><input type="button" value="Add" data-icon="plus" class="plusbtn" /></td>
+		 <td><input type="button" value="Remove" data-icon="minus" class="minusbtn" /></td>
+		 </h2></tr></table>
+		</div>
+		 
+		<table border="1" class="cartContents" id="cartContentsTable" style="width: 100%">
+		 <h3><tr>
+		 <td><select id="cboProducts" class="selectOption" ></select></td>
+		 </tr></h3>
+		</table>
+
+		<a href = "" data-role = "button" id = "GetRecommendations">Get Recommendations</a>
+	</form>
+	</div>
+</div>
+ <div id="foot" data-role = "footer" data-position = "fixed">
+  Apigee Insights Demo
+ </div>
+ </div>
+ </div>
+</body>
+<script name="cboWeather" type="text/javascript">
+$(document).ready(function () {
+
+        jQuery.support.cors = true;
+		$.mobile.allowCrossDomainPage = true;
+		
+		//google search engine id
+		//var googleCSE ='014859992416889660323:9trqfaj0chu';
+		//google api key
+		//var googleKey = 'AIzaSyBtJ1snmxQJ8A85quDUdtBW36JJ16z3eZw';
+		//example
+		//https://www.googleapis.com/customsearch/v1?key=AIzaSyBtJ1snmxQJ8A85quDUdtBW36JJ16z3eZw&cx=014859992416889660323:9trqfaj0chu&q=coke&searchType=image&safe=high&num=1
+		
+		
+		function getImageURL(key){
+			var clientidsecret = '?client_id=b3U6UBCSavNkEeS0j8t9pw-sUw&client_secret=b3U6f_tgPRAlH3rrHQKo1VnCXqAgSRY';
+			var returnURL = "https://api-connectors-prod.apigee.net/appservices/insights-demo-2-0/gilbarco/images/"+key+clientidsecret;
+			return returnURL;
+		}
+			
+		//set current time 
+		var now = new Date();
+		var hr = (now.getHours() > 9 ? now.getHours():'0'+now.getHours());
+		var mn = (now.getMinutes() > 9 ? now.getMinutes():'0'+now.getMinutes());
+		$("#timeOfDay").val(hr+':'+mn);
+
+		jQuery.ajax({
+         type: "GET",
+		 crossDomain: true,
+		 //url: "http://localhost:9000/locations",
+         url: "http://demo18-test.apigee.net/gilbarcoapi/v1/locations",
+         contentType: "application/json; charset=utf-8",
+         dataType: "jsonp",
+         success: function (data, status, jqXHR) {
+            // do something
+			//alert('success');
+			//alert(JSON.stringify(data));
+			var combo = document.getElementById("cboLocations");
+			$.each(data, function (i, theItem) {
+			var option = document.createElement("option");
+			option.text = theItem.DisplayName.toString();
+			option.value = theItem.Location.toString();
+			try {
+				//alert('success add combo');
+				combo.add(option, null); // Other browsers
+			}
+			catch (error) {
+				alert('error found');
+				combo.add(option); // really old browser
+			}
+			});
+			
+			$("#cboLocations").prepend(new Option('', '', true, true));
+			$("#cboLocations option:first").attr("selected", "selected");
+         },
+         error: function (jqXHR, status) {
+             // error handler
+         }
+
+		});
+
+		jQuery.ajax({
+         type: "GET",
+		 crossDomain: true,
+         //url: "http://localhost:9000/products",
+		 url: "http://demo18-test.apigee.net/gilbarcoapi/v1/products",
+         contentType: "application/json; charset=utf-8",
+         dataType: "jsonp",
+         success: function (data, status, jqXHR) {
+            // do something
+			//alert('success');
+			//alert(JSON.stringify(data));
+			var combo = document.getElementById("cboProducts");
+			$.each(data, function (i, theItem) {
+			var option = document.createElement("option");
+			option.text = theItem.ProductName.toString();
+			option.value = theItem.ProductID.toString();
+			try {
+				//alert('success add combo');
+				combo.add(option, null); // Other browsers
+			}
+			catch (error) {
+				alert('error found');
+				combo.add(option); // really old browser
+			}
+			});
+			$("#cboProducts").prepend(new Option('', '', true, true));
+			$("#cboProducts option:first").attr("selected", "selected");
+         },
+         error: function (jqXHR, status) {
+             // error handler
+         }
+
+		});
+		
+		jQuery.ajax({
+         type: "GET",
+		 crossDomain: true,
+		 //url: "http://localhost:9000/weathertypes",
+         url: "http://demo18-test.apigee.net/gilbarcoapi/v1/weathertypes",
+         contentType: "application/json; charset=utf-8",
+         dataType: "jsonp",
+         success: function (data, status, jqXHR) {
+            // do something
+			//alert('success');
+			//alert(JSON.stringify(data));
+			var combo = document.getElementById("cboWeather");
+			$.each(data, function (i, theItem) {
+			var option = document.createElement("option");
+			option.text = theItem.toString();
+			option.value = theItem.toString();
+			try {
+				//alert('success add combo');
+				combo.add(option, null); // Other browsers
+			}
+			catch (error) {
+				alert('error found');
+				combo.add(option); // really old browser
+			}
+			});
+			
+			$("#cboWeather").prepend(new Option('', '', true, true));
+			$("#cboWeather option:first").attr("selected", "selected");
+
+         },
+         error: function (jqXHR, status) {
+             // error handler
+         }
+
+		});
+		
+		
+		$('.plusbtn').click(function() {
+			var pOptions = $('[id$=cboProducts]').html();
+           $(".cartContents").append('<tr><td><select class="selectOption" width="100px"><option selected="selected"></option>'+pOptions+'</select></td></tr>');
+		   $('[id$=cartContentsTable]').trigger("create");
+		   
+		});
+		
+		$('.minusbtn').click(function() {
+		if($(".cartContents tr").length != 1)
+         {
+            $(".cartContents tr:last-child").remove();
+         }
+		else
+         {
+            alert("You cannot delete first row");
+         }
+		});
+		
+		$('#LetsBegin').click(function() {
+		
+			var loc = $("#cboLocations").val();
+			var tim = $("#timeOfDay").val();
+			var weath = $("#cboWeather").val();
+			
+			if ( weath && loc && tim )
+			{	
+				console.log('http://demo18-test.apigee.net/gilbarcoapi/v1/recommendations?weather='+weath+'&location='+loc+'&time='+tim);
+				jQuery.ajax({
+				 type: "GET",
+				 crossDomain: true,
+				 url: 'http://demo18-test.apigee.net/gilbarcoapi/v1/recommendations?weather='+weath+'&location='+loc+'&time='+tim,
+				 //url: "http://demo18-test.apigee.net/gilbarcoapi/v1/weathertypes",
+				 contentType: "application/json; charset=utf-8",
+				 dataType: "jsonp",
+				 success: function (data, status, jqXHR) {
+					// do something
+					//alert('success');
+					//alert(JSON.stringify(data));
+					
+					//Clear Existing Entries in Recommendations table.
+					$('#recoContentsTable').find("tr:gt(0)").remove();
+					
+					$.each(data, function (i, theItem) {
+					$('#recoContentsTable').append('<tr><td><input type="text" class="txtbox" value="'+theItem.ProductName.toString()+'"></td></tr><tr><td><img src ="'+getImageURL(theItem.ProductID.toString())+'" width="100" height="100"></td></tr>');
+					$('#recoContentsTable').trigger("create")
+					});
+										
+				 },
+				 error: function (jqXHR, status) {
+					 // error handler
+				 }
+
+				});	
+			}
+		});
+		
+		$('#GetRecommendations').click(function(){
+			var productsQueryParam = '';
+			
+			
+			$('#cartContentsTable .selectOption').each(function () {
+			if($(this).val()) {
+				productsQueryParam = productsQueryParam +'&productID='+$(this).val();
+			}});
+			
+			var loc = $("#cboLocations").val();
+			var tim = $("#timeOfDay").val();
+			var weath = $("#cboWeather").val();
+			
+			
+			if ( weath && loc && tim && productsQueryParam)
+			{	
+				console.log('http://demo18-test.apigee.net/gilbarcoapi/v1/recommendations?weather='+weath+'&location='+loc+'&time='+tim+productsQueryParam);
+				jQuery.ajax({
+				 type: "GET",
+				 crossDomain: true,
+				 url: 'http://demo18-test.apigee.net/gilbarcoapi/v1/recommendations?weather='+weath+'&location='+loc+'&time='+tim+productsQueryParam,
+				 //url: 'http://localhost:9000/recommendations?topN=5'+productsQueryParam,
+				 //url: "http://demo18-test.apigee.net/gilbarcoapi/v1/weathertypes",
+				 contentType: "application/json; charset=utf-8",
+				 dataType: "jsonp",
+				 success: function (data, status, jqXHR) {
+					// do something
+					//alert('success');
+					//alert(JSON.stringify(data));
+					
+					//Clear Existing Entries in Recommendations table.
+					$('#recoContentsTable').find("tr:gt(0)").remove();
+					
+					$.each(data, function (i, theItem) {
+					$('#recoContentsTable').append('<tr><td><input type="text" class="txtbox" value="'+theItem.ProductName.toString()+'"></td></tr><tr><td><img src ="'+getImageURL(theItem.ProductID.toString())+'" width="100" height="100"></td></tr>');
+					$('#recoContentsTable').trigger("create");
+					});
+							
+				 },
+				 error: function (jqXHR, status) {
+					 // error handler
+				 }
+				 });
+			}				 
+		});	
+});
+
+function reset_all() {
+
+	//Clear Existing Entries in Recommendations table.
+	$('#recoContentsTable').find("tr:gt(0)").remove();
+
+	//Clear Existing Entries in Recommendations table.
+	$('#cartContentsTable').find("tr:gt(0)").remove();
+
+	//Set all options to default
+	$("#cboLocations option:first").attr("selected", "selected");
+	$("#cboLocations").selectmenu('refresh', true);
+	$("#cboWeather  option:first").attr("selected", "selected");
+	$("#cboWeather").selectmenu('refresh', true);
+	$("#cboProducts  option:first").attr("selected", "selected");
+	$("#cboProducts").selectmenu('refresh', true);
+	
+}
+</script>
+</html>
